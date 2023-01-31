@@ -9,7 +9,7 @@ export default class BackendClient {
         if (catchCallback === null || catchCallback === undefined) {
             catchCallback = (requestError) => {console.log(requestError)}
         } 
-        var baseUrl = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://127.0.0.1:5000" : "https://health-records.herokuapp.com"
+        var baseUrl = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://127.0.0.1:5000" : "https://health-monitor.herokuapp.com/"
         var uri = baseUrl + url
         var config = {
             method: method.toUpperCase(),
