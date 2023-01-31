@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const live = "https://nextdaygames-storefront.herokuapp.com"
+const live = "https://health-monitor.herokuapp.com"
 const local = "https://127.0.0.1:5000"
 
 var RestApi = axios.create({

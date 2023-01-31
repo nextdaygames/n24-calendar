@@ -1,7 +1,7 @@
 {
-    "name": "Storefront",
-    "description": "The Next Day Games Storefront",
-    "repository": "https://github.com/nextdaygames/storefront",
+    "name": "Health Monitor",
+    "description": "Monitor Sleep",
+    "repository": "https://github.com/TheNextGuy32/health-monitor",
     "addons": [],
     "stack": "heroku-22"
 }
