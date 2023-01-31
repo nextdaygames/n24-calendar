@@ -1,6 +1,6 @@
 import React from "react";
 import "./Content.css"
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, ButtonGroup, ProgressBar } from "react-bootstrap";
 import BackendClient from "../../BackendClient";
 
 export default class Content extends React.Component {    
@@ -94,6 +94,7 @@ export default class Content extends React.Component {
 
     componentDidMount = () => {
         this.getHealthRecords()
+        this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
     }
 
     getLastRecordTime = (records, recordType) => {
@@ -113,7 +114,7 @@ export default class Content extends React.Component {
         if (lastWakingTime === null) {
             return
         }
-        var timeAwakeHours = Math.round((currentTime.getTime() - lastWakingTime.getTime()) / 1000 / 60 / 60)
+        var timeAwakeHours = Math.round((currentTime.getTime() - lastWakingTime.getTime()) / 1000 / 60 )
         return timeAwakeHours
     }
 
@@ -158,10 +159,30 @@ export default class Content extends React.Component {
         return suggestionElements
     }
 
+    getWakingProgress = () => {
+        if (!(this.state.isAwake === true && this.state.wakeDate !== null && this.state.suggestedSleepTime !== null)) {
+            return 100
+        }
+        var wakeHours = this.state.wakeDate.getHours()
+        var currentTime = new Date().getHours() - wakeHours
+        var endTime = this.state.suggestedSleepTime.getHours() - wakeHours
+        return currentTime / endTime * 100
+    }
+      componentWillUnmount() {
+        clearInterval(this.interval);
+      }
+
     render() {
+        var progressValue = this.getWakingProgress()
         
+        var progress = Math.min(Math.max(progressValue, 0), 100);
         return (
             <div className="content col-12">
+                <div className="row progress-row">
+                    <div className="col-12">
+                        <ProgressBar now={progress} />
+                    </div>
+                </div>
                 <div className="row justify-content-center">
                     <div className="col-12 col-sm-6 health-statements">
                         {this.createSuggestions()}
