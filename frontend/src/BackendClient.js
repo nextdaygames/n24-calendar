@@ -18,8 +18,10 @@ export default class BackendClient {
                 withCredentials: true,
             },
             headers: { 
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Credentials': true,
             },
+            withCredentials: true,
             crossDomain: true,
         };
 
