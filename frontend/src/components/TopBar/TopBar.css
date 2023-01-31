@@ -1,0 +1,41 @@
+.topbar {
+    height:4em;
+    background-color: #fafafa;
+}
+
+.topbar-ul {
+    list-style: none;
+    padding-left:0;
+}
+
+.topbar-li {
+    float: right;
+    text-align: right;
+    margin-right:1em;
+}
+a, span > a {
+    text-decoration: none;
+    color: black;
+    margin-left:1em;
+}
+
+.logout-button:hover {
+    cursor:pointer;
+    color: #0a58ca;
+}
+
+a.welcome-text {
+    color: rgba(0, 0, 0, 0.55);
+}
+a.welcome-text:hover {
+    cursor:default;
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.faked-link {
+    color: rgba(0, 0, 0, 0.55);
+    text-decoration: none;
+}
+.faked-link:hover {
+    color: rgba(0, 0, 0, 0.7)
+}

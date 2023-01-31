@@ -1,0 +1,12 @@
+.splash-section {
+    height:20em;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+.splash-section-even {
+    background-color: #FFBF00;
+    /* background-color: #fff0c4; */
+}
+.content {
+    min-height: 55em;
+}

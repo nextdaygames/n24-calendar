@@ -1,0 +1,7 @@
+{
+    "name": "Storefront",
+    "description": "The Next Day Games Storefront",
+    "repository": "https://github.com/nextdaygames/storefront",
+    "addons": [],
+    "stack": "heroku-22"
+}
