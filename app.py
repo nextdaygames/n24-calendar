@@ -4,7 +4,7 @@ import sys
 from flask_cors import CORS
 
 app = flask.Flask(__name__,static_url_path='', static_folder='frontend/build')
-CORS(app, supports_credentials=True)
+CORS(app)
 
 from implementation.controller import controller
 from implementation.healthRecords.healthRecordsController import healthRecordsController
