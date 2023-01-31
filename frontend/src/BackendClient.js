@@ -14,7 +14,9 @@ export default class BackendClient {
         var config = {
             method: method.toUpperCase(),
             url: uri,
-            crossDomain: true,
+            headers: { 
+                'Content-Type': 'application/json'
+            },
         };
 
         if (body !== null) {
