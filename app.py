@@ -7,6 +7,7 @@ from flask_session import Session
 from implementation.configuration.applicationConfig import ApplicationConfig
 app = flask.Flask(__name__,static_url_path='', static_folder='frontend/build')
 app.config.from_object(ApplicationConfig)
+
 CORS(app, supports_credentials=True)
 serverSession = Session(app)
 
@@ -20,4 +21,4 @@ app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
 if __name__ == '__main__':
-    app.run()
+    app.run()# --log-level=debug --log-file=-debug = True)

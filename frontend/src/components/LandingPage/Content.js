@@ -130,7 +130,7 @@ export default class Content extends React.Component {
         var suggestionElements = []
 
         if (this.state.yourDay !== null) {
-            suggestionElements.push(<p key="timeAwake">It is your {this.state.yourDay}.</p>)
+            suggestionElements.push(<p key="yourDay">It is your {this.state.yourDay}.</p>)
         }
 
         if (this.state.timeAwakeHours !== null) {
