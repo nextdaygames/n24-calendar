@@ -5,7 +5,7 @@ export default class Footer extends React.Component {
     render() {
         return (
             <div className="footer col-12">
-                <p>@2023 Next Day Games. All rights reserved.</p>
+                <p>@2023 Health Monitor. All rights reserved.</p>
             </div>
         );
     }
