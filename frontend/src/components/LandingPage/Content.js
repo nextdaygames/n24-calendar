@@ -16,6 +16,7 @@ export default class Content extends React.Component {
             suggestedSleepTime: null,
             timeAwakeHours: null,
             timeAsleepHours: null,
+            yourDay: null,
             healthRecords: []
         };
     }
@@ -46,6 +47,7 @@ export default class Content extends React.Component {
             timeAsleepHours = Math.round((currentTime.getTime() - sleepTime.getTime()) / 1000 / 60 / 60)
         }
 
+
         var state = {
             wakeDate: wakeTime,
             sleepDate: sleepTime,
@@ -56,10 +58,30 @@ export default class Content extends React.Component {
             suggestedSleepTime: suggestedSleepTime,
             timeAwakeHours: timeAwakeHours,
             timeAsleepHours: timeAsleepHours,
+            yourDay: this.getYourDay(response["data"]["healthRecords"]),
             healthRecords: response["data"]["healthRecords"]
         }
         console.log(state)
         this.setState(state)
+    }
+
+    getDayName(dateStr, locale)
+    {
+        var date = new Date(dateStr);
+        return date.toLocaleDateString(locale, { weekday: 'long' });        
+    }
+
+
+    getYourDay = (records) => {
+        var mondayDate = new Date("2023-01-30T18:08:00.000Z")
+        for (var i = 0; i < records.length; i++) {
+            var record = records[i]
+            if (record["record_type"] !== "SLEEP") {
+                continue
+            }
+            mondayDate.setHours(mondayDate.getHours() + 24)
+        }
+        return this.getDayName(mondayDate)
     }
 
     getHealthRecords = () => {
@@ -106,6 +128,10 @@ export default class Content extends React.Component {
 
     createSuggestions = () => {
         var suggestionElements = []
+
+        if (this.state.yourDay !== null) {
+            suggestionElements.push(<p key="timeAwake">It is your {this.state.yourDay}.</p>)
+        }
 
         if (this.state.timeAwakeHours !== null) {
             suggestionElements.push(<p key="timeAwake">You have been awake for {this.state.timeAwakeHours} hours.</p>)
