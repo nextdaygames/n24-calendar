@@ -22,7 +22,7 @@ export default class Content extends React.Component {
     }
     assignHealthRecords = (response) => {
         var healthRecords = response["data"]["healthRecords"]
-        var sortedHealthRecords = healthRecords.sort((a,b) => (a["created_utc"] < b["created_utc"]) ? -1 : ((a["created_utc"] > b["created_utc"]) ? 1 : 0))
+        var sortedHealthRecords = healthRecords.sort((a,b) => (a["created_utc"] > b["created_utc"]) ? -1 : ((a["created_utc"] < b["created_utc"]) ? 1 : 0))
         
         var wakeTime = this.getLastRecordTime(sortedHealthRecords, "WAKE")
         var sleepTime = this.getLastRecordTime(sortedHealthRecords, "SLEEP")
@@ -33,8 +33,8 @@ export default class Content extends React.Component {
 
         var suggestedEatTime = null
         if (!hasEatenToday) {
-            suggestedEatTime = new Date(wakeTime)
-            suggestedEatTime.setHours(suggestedEatTime.getHours() + 11)
+            suggestedEatTime = new Date(eatTime)
+            suggestedEatTime.setHours(suggestedEatTime.getHours() + 22)
         }
 
         var suggestedSleepTime = null
@@ -152,7 +152,7 @@ export default class Content extends React.Component {
         }
 
         if (this.state.hasEatenToday !== true && this.state.suggestedEatTime !== null) {
-            suggestionElements.push(<p key="eatTimeSuggestion">You should eat at {this.state.suggestedEatTime.toLocaleString()}.</p>)
+            suggestionElements.push(<p key="eatTimeSuggestion">You should eat at {this.state.suggestedEatTime.toLocaleString()}, 22 hours after your last meal.</p>)
         }
         if (this.state.suggestedSleepTime !== null) {
             suggestionElements.push(<p key="sleepTimeSuggestion">You should sleep at {this.state.suggestedSleepTime.toLocaleString()}.</p>)
