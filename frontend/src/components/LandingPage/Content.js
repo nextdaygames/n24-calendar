@@ -190,8 +190,9 @@ export default class Content extends React.Component {
                             <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("SLEEP")}}>Sleep</Button>
                             <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("WAKE")}}>Woke</Button>
                             <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("EAT")}}>Ate</Button>
-                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("MOD_100")}}>Modafinil 100mg</Button>
-                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("MOD_50")}}>Modafinil 50mg</Button>
+                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("EXERCISE")}}>Exercise</Button>
+                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("MOD_100")}}>Mod 100mg</Button>
+                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("MOD_50")}}>Mod 50mg</Button>
                             <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("COFFEE")}}>Coffee</Button>
                         </ButtonGroup>
                     </div>
