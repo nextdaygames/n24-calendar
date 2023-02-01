@@ -22,8 +22,8 @@ export default class Content extends React.Component {
     }
     assignHealthRecords = (response) => {
         var healthRecords = response["data"]["healthRecords"]
-        var sortedHealthRecords = healthRecords.sort((a,b) => new Date(a["created_utc"]).getMilliseconds() - new Date(b["created_utc"]).getMilliseconds())
-
+        var sortedHealthRecords = healthRecords.sort((a,b) => (a["created_utc"] < b["created_utc"]) ? -1 : ((a["created_utc"] > b["created_utc"]) ? 1 : 0))
+        
         var wakeTime = this.getLastRecordTime(sortedHealthRecords, "WAKE")
         var sleepTime = this.getLastRecordTime(sortedHealthRecords, "SLEEP")
         var eatTime = this.getLastRecordTime(sortedHealthRecords, "EAT")
