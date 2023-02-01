@@ -21,10 +21,12 @@ export default class Content extends React.Component {
         };
     }
     assignHealthRecords = (response) => {
+        var healthRecords = response["data"]["healthRecords"]
+        var sortedHealthRecords = healthRecords.sort((a,b) => new Date(a["created_utc"]).getMilliseconds() - new Date(b["created_utc"]).getMilliseconds())
 
-        var wakeTime = this.getLastRecordTime(response["data"]["healthRecords"], "WAKE")
-        var sleepTime = this.getLastRecordTime(response["data"]["healthRecords"], "SLEEP")
-        var eatTime = this.getLastRecordTime(response["data"]["healthRecords"], "EAT")
+        var wakeTime = this.getLastRecordTime(sortedHealthRecords, "WAKE")
+        var sleepTime = this.getLastRecordTime(sortedHealthRecords, "SLEEP")
+        var eatTime = this.getLastRecordTime(sortedHealthRecords, "EAT")
         var currentTime = new Date()
         var hasEatenToday = eatTime > wakeTime
         var isAwake = wakeTime > sleepTime
@@ -57,8 +59,8 @@ export default class Content extends React.Component {
             suggestedSleepTime: suggestedSleepTime,
             timeAwakeHours: timeAwakeHours,
             timeAsleepHours: timeAsleepHours,
-            yourDay: this.getYourDay(response["data"]["healthRecords"]),
-            healthRecords: response["data"]["healthRecords"]
+            yourDay: this.getYourDay(sortedHealthRecords),
+            healthRecords: sortedHealthRecords,
         }
         console.log(state)
         this.setState(state)
@@ -175,8 +177,7 @@ export default class Content extends React.Component {
         var progressValue = this.getWakingProgress()
         var progress = Math.min(Math.max(progressValue, 0), 100);
 
-        var sortedHealthRecords = this.state.healthRecords.sort((a,b) => new Date(a["created_utc"]).getMilliseconds() - new Date(b["created_utc"]).getMilliseconds())
-        var events = sortedHealthRecords.map((record) => <p key={record["created_utc"]}>{record["record_type"]} at {new Date(record["created_utc"] + "Z").toLocaleString()}</p>)
+        var events = this.state.healthRecords.map((record) => <p key={record["created_utc"]}>{record["record_type"]} at {new Date(record["created_utc"] + "Z").toLocaleString()}</p>)
         return (
             <div className="content col-12">
                 <div className="row progress-row">
