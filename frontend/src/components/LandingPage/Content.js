@@ -47,7 +47,6 @@ export default class Content extends React.Component {
             timeAsleepHours = Math.round((currentTime.getTime() - sleepTime.getTime()) / 1000 / 60 / 60)
         }
 
-
         var state = {
             wakeDate: wakeTime,
             sleepDate: sleepTime,
@@ -174,26 +173,36 @@ export default class Content extends React.Component {
 
     render() {
         var progressValue = this.getWakingProgress()
-        
         var progress = Math.min(Math.max(progressValue, 0), 100);
+
+        var sortedHealthRecords = this.state.healthRecords.sort((a,b) => new Date(a["created_utc"]).getMilliseconds() - new Date(b["created_utc"]).getMilliseconds())
+        var events = sortedHealthRecords.map((record) => <p key={record["created_utc"]}>{record["record_type"]} at {new Date(record["created_utc"] + "Z").toLocaleString()}</p>)
         return (
             <div className="content col-12">
                 <div className="row progress-row">
                     <div className="col-12">
-                        <ProgressBar now={progress} />
+                        <ProgressBar label={this.state.timeAwakeHours !== null && this.state.timeAwakeHours < 16 ? this.state.timeAwakeHours + " hours awake, sleep in " + (16 - this.state.timeAwakeHours) : ""} now={progress} />
                     </div>
                 </div>
-                <div className="row justify-content-center">
-                    <div className="col-12 col-sm-6 health-statements">
-                        {this.createSuggestions()}
-                    </div>
-                    <div className="col-12 col-sm-6">
+                <div>
+                <div className="row">
                         <ButtonGroup>
-                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("SLEEP")}}>Log Sleep</Button>
-                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("WAKE")}}>Log Wake</Button>
-                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("EAT")}}>Log Eat</Button>
+                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("SLEEP")}}>Sleep</Button>
+                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("WAKE")}}>Woke</Button>
+                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("EAT")}}>Ate</Button>
+                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("MOD_100")}}>Modafinil 100mg</Button>
+                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("MOD_50")}}>Modafinil 50mg</Button>
+                            <Button variant="outline-primary" className="checkout-button" onClick={()=>{this.logRecord("COFFEE")}}>Coffee</Button>
                         </ButtonGroup>
                     </div>
+                </div>
+                <div className="row health-statements">
+                    <h3 className="events-header">Suggestions</h3>
+                    {this.createSuggestions()}
+                </div>
+                <div className="row health-statements">
+                    <h3 className="events-header">Events</h3>
+                    {events}
                 </div>
             </div>
         );
