@@ -36,4 +36,11 @@ export default class BackendClient {
         this.#request('/health-records', "POST", { recordType: recordType}, thenCallback, catchCallback)
     }
 
+    static getTasks(thenCallback, catchCallback) {
+        this.#request('/tasks', "GET", null, thenCallback, catchCallback)
+    }
+
+    static createTask(name, points, thenCallback, catchCallback) {
+        this.#request('/tasks', "POST", { name: name, points: points }, thenCallback, catchCallback)
+    }
 }

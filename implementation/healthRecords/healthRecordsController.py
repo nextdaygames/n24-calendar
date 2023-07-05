@@ -5,7 +5,8 @@ healthRecordsController = Blueprint('healthRecordsController',__name__)
 
 @healthRecordsController.route('/health-records', methods = ['GET'])
 def getHealthRecords():
-    return { "healthRecords": healthRecordsDynamoAccess.getHealthRecords()}, 200
+    # healthRecordsDynamoAccess.getHealthRecords()
+    return { "healthRecords": []}, 200
 
 @healthRecordsController.route('/health-records', methods = ['POST'])
 def createHealthRecord():

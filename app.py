@@ -9,9 +9,11 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 from implementation.controller import controller
 from implementation.healthRecords.healthRecordsController import healthRecordsController
+from implementation.tasks.tasksController import tasksController
 
 app.register_blueprint(controller)
 app.register_blueprint(healthRecordsController)
+app.register_blueprint(tasksController)
 
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
